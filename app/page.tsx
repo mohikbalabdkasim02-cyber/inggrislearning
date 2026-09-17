@@ -1,1 +1,3 @@
-export default function Home(){return (<main className="min-h-screen p-10"><h1 className="text-5xl font-bold">English Loop</h1><p className="mt-4 text-xl">Watch. Listen. Read. Speak. Grow.</p><div className="mt-8 flex gap-4"><button>Start Learning</button><button>Try Demo</button></div></main>)}
+import Link from 'next/link'
+
+export default function Home(){return (<main className="min-h-screen p-10"><h1 className="text-5xl font-bold">English Loop</h1><p className="mt-4 text-xl">Watch. Listen. Read. Speak. Grow.</p><div className="mt-8 flex gap-4"><Link href="/learn" className="rounded bg-black px-5 py-3 text-white">Start Learning</Link><Link href="/demo" className="rounded border px-5 py-3">Try Demo</Link></div></main>)}
