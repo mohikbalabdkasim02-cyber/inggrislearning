@@ -1,0 +1,1 @@
+export default function FeedbackCard(){return <section className="p-4 rounded border"><h2 className="font-bold">Teacher Feedback</h2><p>Fluency • Vocabulary • Pronunciation • Confidence</p></section>}
