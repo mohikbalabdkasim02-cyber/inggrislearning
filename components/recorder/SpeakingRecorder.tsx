@@ -1,16 +1,24 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function SpeakingRecorder() {
   const [recording, setRecording] = useState(false)
+  const [seconds, setSeconds] = useState(0)
   const [audioUrl, setAudioUrl] = useState("")
   const recorder = useRef<MediaRecorder | null>(null)
   const chunks = useRef<Blob[]>([])
 
+  useEffect(() => {
+    if (!recording) return
+    const timer = setInterval(() => setSeconds((s) => s + 1), 1000)
+    return () => clearInterval(timer)
+  }, [recording])
+
   const start = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
     chunks.current = []
+    setSeconds(0)
     const media = new MediaRecorder(stream)
 
     media.ondataavailable = (event) => chunks.current.push(event.data)
@@ -33,6 +41,7 @@ export default function SpeakingRecorder() {
   return (
     <div className="p-4 rounded-xl border space-y-4">
       <h2 className="font-bold">Speaking Practice</h2>
+      {recording && <p>🔴 Recording {seconds}s</p>}
       <button className="rounded-xl border px-5 py-2" onClick={recording ? stop : start}>
         {recording ? "⏹ Stop Recording" : "🎤 Start Recording"}
       </button>
